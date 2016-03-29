@@ -106,7 +106,8 @@ namespace champ
                 Log.Debug("[SiteBuilder] Copying all static content from " + staticContentPath.FullName);
                 _sourcePath
                   .Subdirectory(Constants.STATIC_CONTENT)
-                  .CopyTo(_outputPath.Subdirectory(Constants.STATIC_CONTENT, true));
+                  //.CopyTo(_outputPath.Subdirectory(Constants.STATIC_CONTENT, true));
+                  .CopyTo(_outputPath);
             }
 
             // Copy files that aren't .md files
