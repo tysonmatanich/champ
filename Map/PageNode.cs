@@ -47,7 +47,8 @@ namespace champ.Map
         {
             if (String.IsNullOrEmpty(_rawContent))
             {
-                return File.ReadAllText(PageFile.FullName);
+                //return File.ReadAllText(PageFile.FullName);
+                return Regex.Replace(File.ReadAllText(PageFile.FullName), @"<!--(.|\n)*?-->", string.Empty, RegexOptions.Multiline);
             }
             else
             {
