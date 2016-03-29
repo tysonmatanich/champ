@@ -75,7 +75,8 @@ namespace champ
 
         public string ProcessPageNode(PageNode page)
         {
-            var rawContent = _markdown.Transform(page.GetRawContent());
+            //var rawContent = _markdown.Transform(page.GetRawContent());
+            var rawContent = page.GetRawContent();
             var templateFile = "~/" + page.Template + ".cshtml";
             var template = Razor.GetTemplate(templateFile);
             var pageModel = new PageModel(page, rawContent, page.PageLists);
