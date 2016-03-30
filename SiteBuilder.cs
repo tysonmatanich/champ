@@ -150,7 +150,7 @@ namespace champ
                     Razor.RegisterTemplate(file.Name.ToLower(), file.ReadAllText());
                 });
             // Register the default template
-            Razor.RegisterTemplate("no_template_defined", "<h1>No template defined!</h1> @Model.Content");
+            Razor.RegisterTemplate("no_template_defined", "@Model.Content");
         }
 
         private void ProcessPages(Node node)
