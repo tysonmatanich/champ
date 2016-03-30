@@ -30,7 +30,6 @@ namespace champ.Map
         {
             var node = new DirectoryNode(path, sitePath);
             // Process each file
-            //foreach (var file in path.GetFiles("*.md"))
             foreach (var file in path.GetFiles("*.htm"))
             {
                 var pageNode = new PageNode(file, globalSettings);
