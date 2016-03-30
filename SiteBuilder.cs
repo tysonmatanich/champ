@@ -106,7 +106,6 @@ namespace champ
                 Log.Debug("[SiteBuilder] Copying all static content from " + staticContentPath.FullName);
                 _sourcePath
                   .Subdirectory(Constants.STATIC_CONTENT)
-                  //.CopyTo(_outputPath.Subdirectory(Constants.STATIC_CONTENT, true));
                   .CopyTo(_outputPath);
             }
 
@@ -114,7 +113,6 @@ namespace champ
             Log.Debug("[SiteBuilder] Copying non-markdown files");
             _sourcePath
               .Subdirectory(Constants.PAGES)
-              //.CopyTo(_outputPath, excludedExtensions: new string[] { ".md" });
               .CopyTo(_outputPath, excludedExtensions: new string[] { ".htm" });
             // Apply .less optimisations
             _outputPath.ConvertAllLessFiles();
@@ -174,6 +172,17 @@ namespace champ
                 if (TryProcessPageNode(page, out renderedContent))
                 {
                     var outputPath = page.GetOutputFileName().Replace(_sourcePath.Subdirectory(Constants.PAGES).FullName, _outputPath.FullName);
+                    
+                    if (!page.IsIndexPage())
+                    {
+                        var destinationPath = page.GetOutputFileNameWithoutExtension().Replace(_sourcePath.Subdirectory(Constants.PAGES).FullName, _outputPath.FullName);
+                        if (!Directory.Exists(destinationPath))
+                        {
+                            Log.Debug("[SiteBuilder] Creating directory " + destinationPath);
+                            Directory.CreateDirectory(destinationPath);
+                        }
+                    }
+                    
                     Log.Debug("[SiteBuilder] Writing to " + outputPath);
                     File.WriteAllText(outputPath, renderedContent);
                 }
