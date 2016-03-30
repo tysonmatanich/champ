@@ -55,12 +55,29 @@ namespace champ.Map
                 return _rawContent;
             }
         }
+        
+        public bool IsIndexPage()
+        {
+            return Path.GetFileNameWithoutExtension(PageFile.Name).ToLowerInvariant() == "index";
+        }
+        
+        public string GetOutputFileNameWithoutExtension()
+        {
+            return Path.GetDirectoryName(PageFile.FullName) + "\\" + Path.GetFileNameWithoutExtension(PageFile.Name);
+        }
 
         public string GetOutputFileName()
         {
-            return Path.ChangeExtension(PageFile.FullName, "html");
+            if (IsIndexPage())
+            {
+                return Path.ChangeExtension(PageFile.FullName, "html");
+            }
+            else
+            {
+                return GetOutputFileNameWithoutExtension() + "\\index.html";
+            }
         }
-
+        
         private void InitialisePageNode()
         {
             Template = Properties.HasProperty("template") ? Properties.template : null;
