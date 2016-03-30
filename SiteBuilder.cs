@@ -133,7 +133,7 @@ namespace champ
             {
                 globalSettings.template = "no_template_defined";
             }
-            globalSettings.title = "Title Not Set";
+            globalSettings.title = string.Empty;
             return globalSettings;
         }
 
